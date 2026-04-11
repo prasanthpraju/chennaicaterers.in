@@ -6,38 +6,35 @@ const stepsData = [
   {
     id: "01",
     title: "The Ability to Choose the Best",
-    description: "The best food, service, and attention to detail, as well as any additional arrangements you've requested for your special occasion.",
+    description: "The best food, service, and attention to detail, as well as any additional arrangements for your special occasion.",
     icon: ClipboardList,
-    color: "from-orange-400 to-orange-600",
-    glow: "from-orange-500/20 to-red-500/20"
+    color: "from-[#EC2290] to-[#ff4eb1]",
+    glow: "from-[#EC2290]/20 to-pink-500/20"
   },
   {
     id: "02",
     title: "Workforce with a Specialized Function",
-    description: "We also have competent chefs on team who can produce a wide range of dishes based on the tastes of our customers.",
+    description: "Our competent chefs produce a wide range of dishes tailored specifically to the unique tastes of our customers.",
     icon: UserCog,
-    color: "from-amber-400 to-amber-600",
-    glow: "from-amber-500/20 to-orange-500/20"
+    color: "from-[#D81B7D] to-[#EC2290]",
+    glow: "from-[#D81B7D]/20 to-[#EC2290]/20"
   },
   {
     id: "03",
     title: "Service with a Long Tradition",
-    description: "We are focusing on the importance of a long history of outstanding customer service.",
+    description: "We focus on a legacy of outstanding customer service, ensuring every event is treated with historical excellence.",
     icon: MapPin,
-    color: "from-red-400 to-red-600",
-    glow: "from-red-500/20 to-pink-500/20"
+    color: "from-[#B01565] to-[#D81B7D]",
+    glow: "from-[#B01565]/20 to-pink-900/20"
   }
 ];
 
 const HowItWorks = () => {
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
+      transition: { staggerChildren: 0.2 }
     }
   };
 
@@ -46,7 +43,7 @@ const HowItWorks = () => {
     show: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
@@ -60,31 +57,37 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24 font-sans overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="bg-white py-20 md:py-28 font-sans overflow-hidden relative">
+      {/* Subtle Background Accent */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-[#EC2290]/5 rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] -right-[10%] w-[30%] h-[50%] bg-[#EC2290]/5 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-            
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tight mb-2">
-            How It <span className="text-red-600 relative inline-block">
+          <span className="text-[#EC2290] font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">Our Process</span>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter">
+            How It <span className="text-[#EC2290] relative inline-block">
               Works
               <motion.svg 
                 initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
+                whileInView={{ width: "110%" }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute -bottom-2 left-0 h-2 text-red-200" 
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="absolute -bottom-1 -left-[5%] h-1.5 text-[#EC2290]/20" 
                 viewBox="0 0 200 10" 
+                preserveAspectRatio="none"
                 fill="currentColor"
               >
-                <path d="M0,5 Q50,0 100,5 T200,5" stroke="none" fill="currentColor" />
+                <path d="M0,5 Q50,0 100,5 T200,5 L200,10 L0,10 Z" />
               </motion.svg>
             </span>
           </h2>
@@ -96,7 +99,7 @@ const HowItWorks = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 relative"
+          className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-12 relative"
         >
           {stepsData.map((step, index) => {
             const Icon = step.icon;
@@ -108,60 +111,46 @@ const HowItWorks = () => {
                 className="relative flex flex-col items-center group"
               >
                 
-                {/* Connecting Dashed Line (Visible only on desktop, not on the last item) */}
+                {/* Connecting Line (Desktop) */}
                 {index < stepsData.length - 1 && (
-                  <div className="hidden md:block absolute top-12 left-[55%] w-[90%] z-0 pointer-events-none">
-                    <svg width="100%" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="hidden md:block absolute top-12 left-[60%] w-[80%] z-0">
+                    <svg width="100%" height="40" viewBox="0 0 200 40" fill="none">
                       <motion.path 
                         variants={drawLineVariants}
-                        d="M0 20 Q 50 -10, 100 20 T 200 20" 
-                        stroke="#d1d5db" 
-                        strokeWidth="2" 
-                        strokeDasharray="6 6"
+                        d="M0 20 Q 50 -5, 100 20 T 200 20" 
+                        stroke="#f3f4f6" 
+                        strokeWidth="3" 
+                        strokeDasharray="8 8"
                         fill="none"
-                      />
-                      {/* Arrow head */}
-                      <motion.path
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2, duration: 0.5 }}
-                        d="M 190 10 L 200 20 L 190 30"
-                        stroke="#d1d5db"
-                        strokeWidth="2"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
                       />
                     </svg>
                   </div>
                 )}
 
-                {/* Icon Circle Container */}
-                <div className="relative mb-8 z-10">
-                  {/* Background Hover Glow */}
-                  <div className={`absolute -inset-4 bg-gradient-to-r ${step.glow} rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                {/* Icon Container */}
+                <div className="relative mb-10">
+                  <div className={`absolute -inset-6 bg-gradient-to-r ${step.glow} rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 scale-75 group-hover:scale-110`} />
                   
-                  {/* Main White Circle */}
                   <motion.div 
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="w-24 h-24 bg-white rounded-full shadow-xl border border-gray-100 flex items-center justify-center relative z-10"
+                    whileHover={{ y: -8 }}
+                    className="w-28 h-28 bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-50 flex items-center justify-center relative z-10 transition-all duration-500 group-hover:shadow-[0_30px_60px_rgba(236,34,144,0.15)] group-hover:border-[#EC2290]/20"
                   >
-                    <Icon size={36} strokeWidth={1.5} className="text-gray-700 group-hover:text-red-600 transition-colors duration-300" />
+                    <Icon size={40} strokeWidth={1.2} className="text-gray-400 group-hover:text-[#EC2290] transition-colors duration-500" />
                     
                     {/* Number Badge */}
-                    <div className={`absolute -top-1 -left-2 w-8 h-8 rounded-full bg-gradient-to-br ${step.color} shadow-lg border-2 border-white flex items-center justify-center z-20`}>
-                      <span className="text-white text-xs font-bold">{step.id}</span>
+                    <div className={`absolute -top-2 -right-2 w-10 h-10 rounded-2xl bg-gradient-to-br ${step.color} shadow-lg border-4 border-white flex items-center justify-center z-20 transform group-hover:rotate-12 transition-transform duration-500`}>
+                      <span className="text-white text-[10px] font-black">{step.id}</span>
                     </div>
                   </motion.div>
                 </div>
 
-                {/* Text Content */}
+                {/* Content */}
                 <div className="text-center px-4">
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-300">
+                  <h3 className="text-xl font-black text-gray-900 mb-4 tracking-tight group-hover:text-[#EC2290] transition-colors duration-300 uppercase">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 text-sm md:text-base leading-relaxed font-medium">
+                  <div className="w-8 h-1 bg-gray-100 mx-auto mb-5 group-hover:w-16 group-hover:bg-[#EC2290]/30 transition-all duration-500 rounded-full" />
+                  <p className="text-gray-500 text-sm md:text-[15px] leading-relaxed font-medium">
                     {step.description}
                   </p>
                 </div>

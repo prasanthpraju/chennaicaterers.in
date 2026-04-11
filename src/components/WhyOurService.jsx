@@ -7,10 +7,10 @@ import WhyOurService3 from "../assets/WhyOurService/why3.png"
 import WhyOurService4 from "../assets/WhyOurService/why4.png"
 
 const WhyOurService = () => {
-  // Animation Variants
+  // Premium Animation Variants
   const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+    show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
 
   const staggerContainer = {
@@ -18,25 +18,25 @@ const WhyOurService = () => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   };
 
   const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8, rotate: -5 },
+    hidden: { opacity: 0, scale: 0.85, rotate: -3 },
     show: { 
       opacity: 1, 
       scale: 1, 
       rotate: 0,
-      transition: { duration: 0.6, type: "spring", stiffness: 100 } 
+      transition: { duration: 0.8, type: "spring", stiffness: 80, damping: 20 } 
     }
   };
 
   return (
-    <section className="bg-white py-16 md:py-24 font-sans overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section className="bg-white py-20 md:py-28 font-sans overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           
           {/* Left Column: Text Content */}
           <motion.div 
@@ -46,53 +46,54 @@ const WhyOurService = () => {
             viewport={{ once: true, margin: "-50px" }}
             className="space-y-6"
           >
-            {/* Small Badge */}
-            {/* <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-orange-50 px-3 py-1.5 rounded-full border border-orange-100">
-              <Sparkles className="text-orange-500 animate-pulse" />
-              <span className="text-orange-600 font-semibold text-xs tracking-wide uppercase">About Our Brand</span>
-            </motion.div> */}
+            {/* Pre-Heading matching other sections */}
+            <motion.span 
+              variants={fadeUp} 
+              className="text-[#EC2290] font-black text-[10px] tracking-[0.3em] uppercase mb-2 block"
+            >
+              Our Story
+            </motion.span>
 
             {/* Main Heading */}
-            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight">
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-[1.1]">
               Why Our <br className="hidden md:block" />
-              <span className="text-red-600 relative inline-block mt-2">
+              <span className="text-[#EC2290] relative inline-block mt-1">
                 Catering Service
                 <motion.svg 
                   initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
+                  whileInView={{ width: "110%" }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="absolute -bottom-2 left-0 h-2 text-red-200" 
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="absolute -bottom-1 -left-[5%] h-1.5 text-[#EC2290]/20" 
                   viewBox="0 0 200 10" 
-                  fill="currentColor"
                   preserveAspectRatio="none"
+                  fill="currentColor"
                 >
-                  <path d="M0,5 Q50,0 100,5 T200,5" stroke="none" fill="currentColor" />
+                  <path d="M0,5 Q50,0 100,5 T200,5 L200,10 L0,10 Z" />
                 </motion.svg>
               </span>
             </motion.h2>
 
-            {/* Decorative Divider matching original screenshot vibe */}
-            <motion.div variants={fadeUp} className="flex items-center gap-4 py-2">
-              <div className="h-px bg-gray-200 flex-1 border-t border-dashed border-gray-300"></div>
-              <UtensilsCrossed className="text-gray-400 w-5 h-5" />
-              <div className="h-px bg-gray-200 flex-1 border-t border-dashed border-gray-300"></div>
+            {/* Premium Decorative Divider */}
+            <motion.div variants={fadeUp} className="flex items-center gap-4 py-4 w-3/4">
+              <div className="h-px bg-gradient-to-r from-gray-200 to-transparent flex-1"></div>
+              <div className="bg-[#EC2290]/10 p-2 rounded-full">
+                <UtensilsCrossed className="text-[#EC2290] w-4 h-4" />
+              </div>
+              <div className="h-px bg-gradient-to-l from-gray-200 to-transparent flex-1"></div>
             </motion.div>
 
             {/* Paragraph Content */}
             <motion.div variants={fadeUp} className="relative">
-              <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-orange-400 to-red-500 rounded-full hidden md:block" />
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed font-medium md:pl-6">
+              {/* Brand Pink Accent Line */}
+              <div className="absolute -left-4 top-1 w-1 h-[90%] bg-gradient-to-b from-[#EC2290] to-[#ff4eb1] rounded-full hidden md:block opacity-80" />
+              
+              <p className="text-gray-500 text-[15px] md:text-base leading-relaxed font-medium md:pl-6 tracking-wide">
                 Our Chennai Catering Service is a modest, self-contained catering business in Chennai. We offer a wide selection of delicious, elegant, courteous, and professional catering services to private and business clients.
               </p>
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed font-medium md:pl-6 mt-4">
+              <p className="text-gray-500 text-[15px] md:text-base leading-relaxed font-medium md:pl-6 mt-5 tracking-wide">
                 We have a highly skilled team of specialists who are dedicated to providing an orderly service within the time frame allotted. Whether you're planning a cocktail party for a corporate or charity event, a small intimate dinner party at home, or a full-scale wedding reception, our catering service can help.
               </p>
-            </motion.div>
-
-            {/* CTA Button (Removed) */}
-            <motion.div variants={fadeUp} className="pt-4">
-                
             </motion.div>
           </motion.div>
 
@@ -102,70 +103,71 @@ const WhyOurService = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-50px" }}
-            className="relative lg:pl-10 mt-10 lg:mt-0"
+            className="relative lg:pl-10 mt-12 lg:mt-0"
           >
             {/* 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4 relative">
+            <div className="grid grid-cols-2 gap-4 md:gap-6 relative z-10">
               
               {/* Image 1: South Indian */}
-              <motion.div variants={imageVariants} className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-lg group">
+              <motion.div variants={imageVariants} className="relative aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group border border-gray-50">
                 <img 
-                  src = {WhyOurService1}
+                  src={WhyOurService1}
                   alt="South Indian Breakfast" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
 
               {/* Image 2: Drinks */}
-              <motion.div variants={imageVariants} className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-lg group mt-8 md:mt-12">
+              <motion.div variants={imageVariants} className="relative aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group mt-8 md:mt-12 border border-gray-50">
                 <img 
-                  src= {WhyOurService2}
+                  src={WhyOurService2}
+                  alt="Drinks"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
 
               {/* Image 3: Buffet */}
-              <motion.div variants={imageVariants} className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-lg group -mt-8 md:-mt-12">
+              <motion.div variants={imageVariants} className="relative aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group -mt-8 md:-mt-12 border border-gray-50">
                 <img 
-                  src= {WhyOurService3}
+                  src={WhyOurService3}
                   alt="Buffet Spread" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
 
               {/* Image 4: Main Course */}
-              <motion.div variants={imageVariants} className="relative aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-lg group">
+              <motion.div variants={imageVariants} className="relative aspect-square rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group border border-gray-50">
                 <img 
-                  src= {WhyOurService4}
+                  src={WhyOurService4}
                   alt="Main Course Chicken" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
 
-              {/* Center "Taste It" Glassmorphism Badge */}
+              {/* Center "Taste It" Premium Badge */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
                 whileInView={{ opacity: 1, scale: 1, rotate: -5 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.8, duration: 0.6, type: "spring" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+                transition={{ delay: 0.6, duration: 0.8, type: "spring", stiffness: 200, damping: 20 }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
               >
-                <div className="bg-white/70 backdrop-blur-md border border-white shadow-2xl px-6 py-4 md:px-8 md:py-6 flex flex-col items-center justify-center rounded-xl md:rounded-2xl">
-                  <span className="text-xl md:text-3xl font-black text-gray-900 font-serif italic tracking-wide">
+                <div className="bg-white/90 backdrop-blur-xl border border-white/50 shadow-[0_30px_60px_rgba(236,34,144,0.2)] px-8 py-5 md:px-10 md:py-8 flex flex-col items-center justify-center rounded-[2rem] transition-transform hover:scale-105 duration-300 cursor-pointer group">
+                  <span className="text-xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter group-hover:text-[#EC2290] transition-colors">
                     Taste It
                   </span>
-                  <div className="h-0.5 w-12 bg-red-500 mt-2 rounded-full" />
+                  <div className="h-1 w-12 bg-[#EC2290] mt-2.5 rounded-full group-hover:w-20 transition-all duration-300" />
                 </div>
               </motion.div>
 
             </div>
 
-            {/* Decorative Background Blob */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-orange-100/40 to-red-50/40 rounded-full blur-3xl -z-10" />
+            {/* Decorative Background Blob behind images */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-[#EC2290]/10 to-[#ff4eb1]/5 rounded-full blur-[80px] -z-10" />
           </motion.div>
 
         </div>

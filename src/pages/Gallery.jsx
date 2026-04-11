@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
+import { Play, X, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
 
 const BASE_URL = "https://api.chennaicaterers.in";
-const ITEMS_PER_PAGE = 12; // Adjust this number to show more/less items per page
+const ITEMS_PER_PAGE = 12; 
 
 // =========================================================================
-// Helper: Safely grabs the best available resolution to optimize loading
+// Helper: Safely grabs the best available resolution
 // =========================================================================
 const getOptimizedUrl = (mediaObj, preferLarge = false) => {
   if (!mediaObj) return null;
@@ -102,7 +103,6 @@ const Gallery = () => {
   // =========================================================================
   // Filtering & Pagination Logic
   // =========================================================================
-  
   const filteredItems = items.filter((item) => {
     if (activeTab === "All") return true; 
     if (activeTab === "Photos") return item.type === "photo";
@@ -111,7 +111,6 @@ const Gallery = () => {
   });
 
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-  
   const paginatedItems = filteredItems.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -170,7 +169,7 @@ const Gallery = () => {
           className="relative w-20 h-20"
         >
           <div className="absolute inset-0 border-4 border-gray-100 rounded-full"></div>
-          <div className="absolute inset-0 border-4 border-red-600 rounded-full border-t-transparent shadow-[0_0_20px_rgba(220,38,38,0.3)]"></div>
+          <div className="absolute inset-0 border-4 border-[#EC2290] rounded-full border-t-transparent shadow-[0_0_20px_rgba(236,34,144,0.3)]"></div>
         </motion.div>
         <motion.p 
           animate={{ opacity: [0.5, 1, 0.5] }}
@@ -184,7 +183,7 @@ const Gallery = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-24 font-sans">
+    <div className="min-h-screen bg-gray-50 pt-32 pb-24 font-sans selection:bg-[#EC2290]/10 selection:text-[#EC2290]">
       
       {/* Header Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
@@ -193,11 +192,11 @@ const Gallery = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block py-1.5 px-4 bg-red-50 text-red-600 font-extrabold tracking-widest uppercase text-xs mb-4 rounded-full">
+          <span className="inline-block py-1.5 px-4 bg-[#EC2290]/10 text-[#EC2290] font-extrabold tracking-widest uppercase text-xs mb-4 rounded-full">
             Our Memories
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight mb-6 leading-tight">
-            Visual <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Gallery</span>
+            Visual <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EC2290] to-[#c81978]">Gallery</span>
           </h1>
           <p className="text-gray-500 font-medium text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             A modern showcase of our finest catering setups, delicious food presentations, and moments from our events.
@@ -213,8 +212,8 @@ const Gallery = () => {
             onClick={() => setActiveTab(tab)}
             className={`px-6 py-2.5 rounded-full font-bold uppercase tracking-wide text-sm transition-all duration-300 ${
               activeTab === tab
-                ? "bg-red-600 text-white shadow-lg shadow-red-600/30"
-                : "bg-white text-gray-600 hover:bg-red-50 hover:text-red-600 border border-gray-200 shadow-sm active:scale-95"
+                ? "bg-[#EC2290] text-white shadow-lg shadow-[#EC2290]/30"
+                : "bg-white text-gray-600 hover:bg-[#EC2290]/10 hover:text-[#EC2290] border border-gray-200 shadow-sm active:scale-95"
             }`}
           >
             {tab}
@@ -243,7 +242,7 @@ const Gallery = () => {
                 animate="show"
                 exit="exit"
                 onClick={() => openLightbox(item.id)} 
-                className="group relative aspect-square md:aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-900 shadow hover:shadow-2xl hover:shadow-red-900/10 transition-all duration-500 border border-gray-100/10 cursor-pointer"
+                className="group relative aspect-square md:aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-900 shadow hover:shadow-2xl hover:shadow-[#EC2290]/15 transition-all duration-500 border border-gray-100/10 cursor-pointer"
               >
                 {item.type === "photo" ? (
                   <img
@@ -262,8 +261,8 @@ const Gallery = () => {
                       playsInline
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-red-600/90 transition-colors duration-300">
-                        <svg className="w-5 h-5 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                      <div className="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-[#EC2290]/90 transition-colors duration-300">
+                        <Play className="w-5 h-5 text-white ml-1" fill="currentColor" />
                       </div>
                     </div>
                   </div>
@@ -289,12 +288,10 @@ const Gallery = () => {
             className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100 px-6"
           >
             <div className="w-20 h-20 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
+              <ImageIcon className="w-10 h-10" />
             </div>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight">Gallery under curation</h3>
-            <p className="text-gray-500 font-medium max-w-sm mx-auto">Our chefs and setup team are busy documenting their finest work. Check back soon.</p>
+            <p className="text-gray-500 font-medium max-w-sm mx-auto">Our chefs and setup team are busy documenting their finest work.</p>
           </motion.div>
         )}
 
@@ -307,10 +304,10 @@ const Gallery = () => {
               className={`p-2 rounded-full border transition-all ${
                 currentPage === 1 
                   ? "border-gray-200 text-gray-300 cursor-not-allowed" 
-                  : "border-gray-300 text-gray-600 hover:border-red-600 hover:text-red-600 hover:bg-red-50"
+                  : "border-gray-300 text-gray-600 hover:border-[#EC2290] hover:text-[#EC2290] hover:bg-[#EC2290]/10"
               }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
+              <ChevronLeft className="w-5 h-5" />
             </button>
 
             <div className="flex gap-2">
@@ -322,8 +319,8 @@ const Gallery = () => {
                     onClick={() => handlePageChange(pageNum)}
                     className={`w-10 h-10 flex items-center justify-center rounded-full font-bold text-sm transition-all ${
                       currentPage === pageNum
-                        ? "bg-red-600 text-white shadow-md shadow-red-600/30"
-                        : "bg-white border border-gray-200 text-gray-600 hover:border-red-600 hover:text-red-600"
+                        ? "bg-[#EC2290] text-white shadow-md shadow-[#EC2290]/30"
+                        : "bg-white border border-gray-200 text-gray-600 hover:border-[#EC2290] hover:text-[#EC2290]"
                     }`}
                   >
                     {pageNum}
@@ -338,18 +335,16 @@ const Gallery = () => {
               className={`p-2 rounded-full border transition-all ${
                 currentPage === totalPages 
                   ? "border-gray-200 text-gray-300 cursor-not-allowed" 
-                  : "border-gray-300 text-gray-600 hover:border-red-600 hover:text-red-600 hover:bg-red-50"
+                  : "border-gray-300 text-gray-600 hover:border-[#EC2290] hover:text-[#EC2290] hover:bg-[#EC2290]/10"
               }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         )}
       </div>
 
-      {/* ========================================================================= */}
-      {/* Lightbox / Fullscreen Viewer */}
-      {/* ========================================================================= */}
+      {/* Lightbox Viewer */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
@@ -362,9 +357,9 @@ const Gallery = () => {
           >
             <button 
               onClick={closeLightbox}
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white bg-black/50 hover:bg-red-600 p-3 rounded-full transition-all z-50"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white bg-black/50 hover:bg-[#EC2290] p-3 rounded-full transition-all z-50"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              <X className="w-6 h-6" />
             </button>
 
             {filteredItems.length > 1 && (
@@ -372,7 +367,7 @@ const Gallery = () => {
                 onClick={(e) => { e.stopPropagation(); showPrev(); }}
                 className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/50 hover:bg-white/20 p-3 sm:p-4 rounded-full transition-all z-50"
               >
-                <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
             )}
 
@@ -381,7 +376,7 @@ const Gallery = () => {
                 onClick={(e) => { e.stopPropagation(); showNext(); }}
                 className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/50 hover:bg-white/20 p-3 sm:p-4 rounded-full transition-all z-50"
               >
-                <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
             )}
 

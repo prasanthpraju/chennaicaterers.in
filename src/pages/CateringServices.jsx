@@ -86,11 +86,11 @@ export default function CateringServices() {
           transition={{ duration: 0.5 }}
           className="text-center mb-14"
         >
-          <span className="inline-block py-1 px-3 bg-red-50 text-red-600 font-extrabold tracking-widest uppercase text-[10px] sm:text-xs mb-3 rounded-full">
+          <span className="inline-block py-1 px-3 bg-[#EC2290]/10 text-[#EC2290] font-extrabold tracking-widest uppercase text-[10px] sm:text-xs mb-3 rounded-full">
             Our Expertise
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight mb-4 capitalize">
-            Catering <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Services</span>
+            Catering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EC2290] to-[#c81978]">Services</span>
           </h2>
           <p className="text-gray-500 font-medium text-sm md:text-base max-w-2xl mx-auto">
             From intimate gatherings to grand celebrations, we bring authentic flavors and impeccable service to every occasion.
@@ -109,7 +109,7 @@ export default function CateringServices() {
             <motion.div 
               variants={cardVariants}
               key={item.id} 
-              className="group bg-white rounded-2xl p-2 md:p-3 shadow-sm hover:shadow-2xl hover:shadow-red-900/10 border border-gray-100 transition-all duration-300 ease-out cursor-pointer flex flex-col"
+              className="group bg-white rounded-2xl p-2 md:p-3 shadow-sm hover:shadow-2xl hover:shadow-[#EC2290]/15 border border-gray-100 transition-all duration-300 ease-out cursor-pointer flex flex-col"
             >
               
               {/* Image Container with Inner Shadow */}
@@ -120,31 +120,16 @@ export default function CateringServices() {
                   loading="lazy"
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
-                {/* Subtle gradient overlay to make images look richer */}
+                {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
 
-              {/* Text & Actions Container */}
+              {/* Text Container */}
               <div className="flex flex-col flex-grow px-1 pb-1">
                 {/* Title */}
-                <h3 className="text-center font-extrabold text-[13px] md:text-base text-gray-800 group-hover:text-red-600 transition-colors duration-300 line-clamp-1 mb-1">
+                <h3 className="text-center font-extrabold text-[13px] md:text-base text-gray-800 group-hover:text-[#EC2290] transition-colors duration-300 line-clamp-1 mb-1">
                   {item.title}
                 </h3>
-
-                {/* Hover Buttons Reveal */}
-                <div className="grid grid-cols-2 gap-2 overflow-hidden max-h-0 opacity-0 group-hover:max-h-[50px] group-hover:opacity-100 group-hover:mt-3 transition-all duration-300 ease-in-out">
-                  
-                  {/* Primary Action */}
-                  <button className="bg-red-600 hover:bg-red-700 text-white font-bold text-[10px] md:text-xs tracking-wider uppercase py-2 md:py-2.5 rounded-lg transition-colors active:scale-95 shadow-sm">
-                    Book
-                  </button>
-                  
-                  {/* Secondary Action */}
-                  <button className="bg-red-50 hover:bg-red-100 text-red-600 font-bold text-[10px] md:text-xs tracking-wider uppercase py-2 md:py-2.5 rounded-lg transition-colors active:scale-95 border border-red-100">
-                    View
-                  </button>
-
-                </div>
               </div>
 
             </motion.div>

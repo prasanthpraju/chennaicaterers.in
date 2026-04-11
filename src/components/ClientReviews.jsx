@@ -37,7 +37,7 @@ const reviewsData = [
   }
 ];
 
-const SLIDE_DURATION = 4000;
+const SLIDE_DURATION = 5000; // Increased slightly for better readability
 
 const ClientReviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,52 +56,73 @@ const ClientReviews = () => {
 
   const currentReview = reviewsData[currentIndex];
 
-  // Animation for the text changing
+  // Premium Animation for the text changing
   const textVariants = {
-    initial: { opacity: 0, y: 15, scale: 0.98 },
+    initial: { opacity: 0, y: 20, filter: "blur(4px)" },
     animate: { 
       opacity: 1, 
       y: 0, 
-      scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" } 
+      filter: "blur(0px)",
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
     },
     exit: { 
       opacity: 0, 
       y: -15, 
-      scale: 0.98,
-      transition: { duration: 0.3, ease: "easeIn" } 
+      filter: "blur(4px)",
+      transition: { duration: 0.4, ease: "easeIn" } 
     }
   };
 
   return (
-    <section className="bg-gray-50 py-12 md:py-16 font-sans overflow-hidden">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="bg-white py-20 md:py-28 font-sans overflow-hidden relative">
+      {/* Subtle Background Accent */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none overflow-hidden opacity-40">
+        <div className="absolute top-[30%] -left-[10%] w-[30%] h-[40%] bg-[#EC2290]/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-[10%] -right-[10%] w-[40%] h-[30%] bg-[#ff4eb1]/5 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-           
-          <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase tracking-tight">
-            Hear From Our <span className="text-red-600">Guests</span>
+          <span className="text-[#EC2290] font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">Testimonials</span>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter">
+            Hear From Our <span className="text-[#EC2290] relative inline-block">
+              Guests
+              <motion.svg 
+                initial={{ width: 0 }}
+                whileInView={{ width: "110%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="absolute -bottom-1 -left-[5%] h-1.5 text-[#EC2290]/20" 
+                viewBox="0 0 200 10" 
+                preserveAspectRatio="none"
+                fill="currentColor"
+              >
+                <path d="M0,5 Q50,0 100,5 T200,5 L200,10 L0,10 Z" />
+              </motion.svg>
+            </span>
           </h2>
         </motion.div>
 
         {/* Main Review Card */}
         <div 
-          className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-10 relative"
+          className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-gray-50 p-8 md:p-12 relative group transition-all duration-500 hover:shadow-[0_30px_60px_rgba(236,34,144,0.08)] hover:border-[#EC2290]/10"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Decorative Quote Mark */}
-          <Quote size={80} className="absolute top-4 left-6 text-gray-50 opacity-60 -z-0 rotate-180" />
-          <Quote size={80} className="absolute bottom-4 right-6 text-gray-50 opacity-60 -z-0" />
+          <Quote size={80} className="absolute top-6 left-8 text-[#EC2290]/5 -z-0 rotate-180 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-x-2 group-hover:-translate-y-2" />
+          <Quote size={80} className="absolute bottom-6 right-8 text-[#EC2290]/5 -z-0 transition-transform duration-500 group-hover:scale-110 group-hover:translate-x-2 group-hover:translate-y-2" />
 
-          {/* Review Content Area (Fixed minimum height prevents layout jumping) */}
-          <div className="relative z-10 min-h-[180px] md:min-h-[140px] flex flex-col items-center justify-center text-center">
+          {/* Review Content Area */}
+          <div className="relative z-10 min-h-[200px] md:min-h-[160px] flex flex-col items-center justify-center text-center mt-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -112,24 +133,24 @@ const ClientReviews = () => {
                 className="max-w-2xl mx-auto"
               >
                 {/* Stars */}
-                <div className="flex justify-center gap-1 mb-4">
+                <div className="flex justify-center gap-1.5 mb-6">
                   {[...Array(5)].map((_, i) => (
                     <Star 
                       key={i} 
-                      size={16} 
-                      className={i < currentReview.rating ? "text-orange-400 fill-orange-400" : "text-gray-200 fill-gray-200"} 
+                      size={18} 
+                      className={i < currentReview.rating ? "text-yellow-400 fill-yellow-400 drop-shadow-sm" : "text-gray-200 fill-gray-200"} 
                     />
                   ))}
                 </div>
 
                 {/* Text */}
-                <p className="text-gray-700 text-base md:text-lg font-medium leading-relaxed italic mb-6">
+                <p className="text-gray-600 text-lg md:text-xl font-medium leading-relaxed mb-8 px-4">
                   "{currentReview.text}"
                 </p>
 
                 {/* Author Name */}
-                <h4 className="text-lg font-bold text-gray-900">{currentReview.name}</h4>
-                <p className="text-red-600 text-xs font-bold uppercase tracking-wider mt-1">
+                <h4 className="text-xl font-black text-gray-900 tracking-tight">{currentReview.name}</h4>
+                <p className="text-[#EC2290] text-[10px] font-black uppercase tracking-widest mt-1.5">
                   {currentReview.role}
                 </p>
               </motion.div>
@@ -137,10 +158,10 @@ const ClientReviews = () => {
           </div>
 
           {/* Progress Bar (Thin line above avatars) */}
-          <div className="w-full h-0.5 bg-gray-100 mt-8 mb-6 rounded-full overflow-hidden relative max-w-md mx-auto">
+          <div className="w-full h-[3px] bg-gray-100 mt-10 mb-8 rounded-full overflow-hidden relative max-w-md mx-auto">
             <motion.div 
               key={currentIndex}
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-orange-400 to-red-600"
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#EC2290] to-[#ff4eb1]"
               initial={{ width: "0%" }}
               animate={{ width: isHovered ? "0%" : "100%" }}
               transition={{ duration: isHovered ? 0 : (SLIDE_DURATION / 1000), ease: "linear" }}
@@ -148,7 +169,7 @@ const ClientReviews = () => {
           </div>
 
           {/* Interactive Avatar Dock */}
-          <div className="flex justify-center items-center gap-3 md:gap-5">
+          <div className="flex justify-center items-center gap-4 md:gap-6">
             {reviewsData.map((review, idx) => {
               const isActive = idx === currentIndex;
               
@@ -161,13 +182,13 @@ const ClientReviews = () => {
                 >
                   <motion.div 
                     animate={{
-                      scale: isActive ? 1.2 : 0.9,
-                      opacity: isActive ? 1 : 0.5,
+                      scale: isActive ? 1.25 : 0.9,
+                      opacity: isActive ? 1 : 0.4,
                       filter: isActive ? "grayscale(0%)" : "grayscale(100%)"
                     }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={`w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 transition-colors duration-300 ${
-                      isActive ? 'border-red-500 shadow-md z-10' : 'border-transparent group-hover:border-gray-300'
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 transition-all duration-300 ${
+                      isActive ? 'border-[#EC2290] shadow-[0_0_20px_rgba(236,34,144,0.3)] z-10' : 'border-transparent group-hover:border-gray-300 group-hover:opacity-80'
                     }`}
                   >
                     <img 

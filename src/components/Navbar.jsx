@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
@@ -7,15 +7,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuExpanded, setMobileMenuExpanded] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // Handle transparent to solid background on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) setIsOpen(false);
@@ -24,18 +23,33 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Reset dropdown when mobile menu closes
   useEffect(() => {
     if (!isOpen) setMobileMenuExpanded(false);
   }, [isOpen]);
 
-  // Unified function to force close the menu instantly on tap/click
+  // Function to handle navigation with scroll to top
+  const handleNavigation = (path) => {
+    // Close mobile menu first
+    setIsOpen(false);
+    setMobileMenuExpanded(false);
+    
+    // Check if we're already on the same page
+    if (location.pathname === path) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate(path);
+      // Scroll to top after navigation
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
   const closeNav = () => {
     setIsOpen(false);
     setMobileMenuExpanded(false);
   };
 
-  // Navigation Links
   const navLinks = [
     { name: "Home", path: "/" },
     {
@@ -56,23 +70,26 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled || isOpen
-          ? "bg-white/95 backdrop-blur-lg shadow-md py-3"
-          : "bg-white/95 backdrop-blur-md shadow-sm py-4"
+          ? "bg-[#EC2290] backdrop-blur-lg shadow-md py-3"
+          : "bg-[#EC2290] backdrop-blur-md shadow-sm py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center w-full relative">
-        {/* Left: Logo (Wrapped in a flex-1 container to balance the right side) */}
+        {/* Left: Logo */}
         <div className="flex-1 flex justify-start z-50">
-          <Link to="/" className="flex items-center px-1" onClick={closeNav}>
+          <button 
+            onClick={() => handleNavigation("/")} 
+            className="flex items-center px-1 focus:outline-none cursor-pointer"
+          >
             <img
               src="/logo1.png"
               alt="Chennai Caters Logo"
               className="h-10 md:h-12 w-auto object-contain mix-blend-multiply"
             />
-          </Link>
+          </button>
         </div>
 
-        {/* Center: Desktop Navigation (Increased gap to fill space elegantly) */}
+        {/* Center: Desktop Navigation */}
         <div className="hidden lg:flex items-center justify-center gap-10 lg:gap-12">
           {navLinks.map((link) => {
             const isMainActive = link.path && location.pathname === link.path;
@@ -87,8 +104,8 @@ export default function Navbar() {
                   <div
                     className={`flex items-center gap-1.5 relative font-bold text-[15px] uppercase tracking-wide transition-colors duration-300 py-2 cursor-pointer rounded-md px-1 ${
                       isActive
-                        ? "text-red-600"
-                        : "text-gray-800 hover:text-red-600"
+                        ? "text-white" 
+                        : "text-black hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -98,28 +115,27 @@ export default function Navbar() {
                       className="transition-transform duration-300 group-hover:rotate-180"
                     />
                     <span
-                      className={`absolute left-0 bottom-0 h-[2px] bg-red-600 transition-all duration-300 rounded-full ${
+                      className={`absolute left-0 bottom-0 h-[2px] bg-white transition-all duration-300 rounded-full ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
                   </div>
                 ) : (
-                  <Link
-                    to={link.path}
-                    onClick={closeNav}
-                    className={`flex items-center gap-1 relative font-bold text-[15px] uppercase tracking-wide transition-colors duration-300 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 rounded-md px-1 ${
+                  <button
+                    onClick={() => handleNavigation(link.path)}
+                    className={`flex items-center gap-1 relative font-bold text-[15px] uppercase tracking-wide transition-colors duration-300 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-md px-1 cursor-pointer ${
                       isActive
-                        ? "text-red-600"
-                        : "text-gray-800 hover:text-red-600"
+                        ? "text-white"
+                        : "text-black hover:text-white"
                     }`}
                   >
                     {link.name}
                     <span
-                      className={`absolute left-0 bottom-0 h-[2px] bg-red-600 transition-all duration-300 rounded-full ${
+                      className={`absolute left-0 bottom-0 h-[2px] bg-white transition-all duration-300 rounded-full ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
-                  </Link>
+                  </button>
                 )}
 
                 {/* Desktop Dropdown */}
@@ -127,18 +143,17 @@ export default function Navbar() {
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                     <div className="bg-white border border-gray-100 shadow-xl rounded-xl overflow-hidden py-2 flex flex-col">
                       {link.subLinks.map((subLink) => (
-                        <Link
+                        <button
                           key={subLink.name}
-                          to={subLink.path}
-                          onClick={closeNav}
-                          className={`px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
+                          onClick={() => handleNavigation(subLink.path)}
+                          className={`px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors text-left cursor-pointer ${
                             location.pathname === subLink.path
-                              ? "bg-red-50 text-red-600"
-                              : "text-gray-700 hover:bg-gray-50 hover:text-red-600"
+                              ? "bg-[#EC2290] text-white"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-[#EC2290]"
                           }`}
                         >
                           {subLink.name}
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -148,14 +163,13 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right: Invisible spacer to perfectly balance the flex layout */}
         <div className="hidden lg:flex flex-1 justify-end"></div>
 
         {/* Mobile Toggle */}
         <div className="flex lg:hidden items-center z-50">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-800 p-1 focus:outline-none rounded-lg transition-transform duration-300 hover:bg-gray-100"
+            className="text-black p-1 focus:outline-none rounded-lg transition-transform duration-300 hover:bg-white/20 cursor-pointer"
           >
             {isOpen ? (
               <X size={28} strokeWidth={2.5} />
@@ -186,10 +200,10 @@ export default function Navbar() {
                   {link.subLinks ? (
                     <button
                       onClick={() => setMobileMenuExpanded(!mobileMenuExpanded)}
-                      className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 text-left flex justify-between items-center ${
+                      className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 text-left flex justify-between items-center cursor-pointer ${
                         isActive
-                          ? "text-red-600 bg-red-50/50"
-                          : "text-gray-800 hover:text-red-600 hover:bg-gray-50"
+                          ? "text-[#EC2290] bg-gray-50"
+                          : "text-black hover:text-[#EC2290]" 
                       }`}
                     >
                       {link.name}
@@ -202,17 +216,16 @@ export default function Navbar() {
                       />
                     </button>
                   ) : (
-                    <Link
-                      to={link.path}
-                      onClick={closeNav}
-                      className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 ${
+                    <button
+                      onClick={() => handleNavigation(link.path)}
+                      className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 text-left cursor-pointer ${
                         isActive
-                          ? "text-red-600 bg-red-50/50"
-                          : "text-gray-800 hover:text-red-600 hover:bg-gray-50"
+                          ? "text-[#EC2290] bg-gray-50"
+                          : "text-black hover:text-[#EC2290]"
                       }`}
                     >
                       {link.name}
-                    </Link>
+                    </button>
                   )}
                 </div>
 
@@ -225,18 +238,17 @@ export default function Navbar() {
                     }`}
                   >
                     {link.subLinks.map((subLink) => (
-                      <Link
+                      <button
                         key={subLink.name}
-                        to={subLink.path}
-                        onClick={closeNav}
-                        className={`pl-6 pr-4 py-3 text-sm font-bold uppercase tracking-wider border-l-2 transition-colors ${
+                        onClick={() => handleNavigation(subLink.path)}
+                        className={`pl-6 pr-4 py-3 text-sm font-bold uppercase tracking-wider border-l-2 transition-colors text-left cursor-pointer ${
                           location.pathname === subLink.path
-                            ? "border-red-600 text-red-600 bg-red-50/30"
-                            : "border-transparent text-gray-600 hover:text-red-600 hover:bg-gray-100/50"
+                            ? "border-[#EC2290] text-[#EC2290] bg-white"
+                            : "border-transparent text-gray-600 hover:text-[#EC2290]"
                         }`}
                       >
                         {subLink.name}
-                      </Link>
+                      </button>
                     ))}
                   </div>
                 )}

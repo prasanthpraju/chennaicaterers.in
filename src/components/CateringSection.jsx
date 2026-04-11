@@ -7,6 +7,7 @@ import CateringSection3 from "../assets/CateringSection/sec3.png"
 import CateringSection4 from "../assets/CateringSection/sec4.png"
 import CateringSection5 from "../assets/CateringSection/sec5.png"
 import CateringSection6 from "../assets/CateringSection/sec6.png"
+
 const menuData = [
   {
     id: 1,
@@ -14,7 +15,7 @@ const menuData = [
     description: "For all occasions and weddings, Chennai Catering Service provides the best breakfast menu; we also assist customers in building a customised menu that is personalised to their preferences and suitable for the celebration.",
     longDescription: "Our breakfast menu features an exquisite selection of traditional South Indian delicacies including crispy dosas, fluffy idlis, flavorful vadas, and aromatic pongal. Each dish is prepared with authentic spices and fresh ingredients, ensuring a memorable start to any celebration.",
     image: CateringSection1,
-    bgGradient: "from-orange-500/20 to-red-500/20"
+    bgGradient: "from-[#EC2290]/20 to-[#ff4eb1]/20"
   },
   {
     id: 2,
@@ -22,7 +23,7 @@ const menuData = [
     description: "Chennai Catering Service provides delicious lunch menus for a variety of gatherings and events; we also allow customers to create a custom menu based on their tastes, budget, and pricing range.",
     longDescription: "Experience the richness of authentic Tamil Nadu cuisine with our elaborate lunch menus. From traditional banana leaf service to modern buffet presentations, we offer a wide range of vegetarian and non-vegetarian options.",
     image: CateringSection2,
-    bgGradient: "from-green-500/20 to-teal-500/20"
+    bgGradient: "from-[#D81B7D]/20 to-[#EC2290]/20"
   },
   {
     id: 3,
@@ -30,7 +31,7 @@ const menuData = [
     description: "Elegant dinner spreads featuring both South Indian specialties and fusion cuisine, perfect for evening receptions and formal gatherings.",
     longDescription: "Our dinner menu combines traditional flavors with contemporary presentation. Choose from our curated selection of starters, main courses, and desserts that will leave your guests impressed.",
     image: CateringSection3,
-    bgGradient: "from-purple-500/20 to-pink-500/20"
+    bgGradient: "from-[#B01565]/20 to-[#D81B7D]/20"
   },
     {
       id: 4,
@@ -38,7 +39,7 @@ const menuData = [
       description: "Grand wedding catering with traditional South Indian flavors and elegant presentation to make your big day unforgettable.",
       longDescription: "Our wedding catering service is designed to deliver a luxurious and authentic experience. From classic banana leaf meals to multi-course premium buffets, we handle everything with perfection. We ensure taste, hygiene, and flawless service that matches your celebration scale.",
       image: CateringSection4,
-      bgGradient: "from-pink-500/20 to-red-500/20"
+      bgGradient: "from-[#ff4eb1]/20 to-[#EC2290]/20"
     },
     {
       id: 5,
@@ -46,7 +47,7 @@ const menuData = [
       description: "Perfect catering solutions for outdoor events, beach parties, and garden celebrations with live cooking experience.",
       longDescription: "We specialize in outdoor catering setups including beach events, terrace parties, and garden weddings. Our team ensures seamless service with live cooking stations, fresh food preparation, and a vibrant dining experience anywhere you host.",
       image: CateringSection5,
-      bgGradient: "from-blue-500/20 to-cyan-500/20"
+      bgGradient: "from-[#EC2290]/20 to-[#B01565]/20"
     },
     {
       id: 6,
@@ -54,7 +55,7 @@ const menuData = [
       description: "Professional catering services tailored for corporate meetings, office events, and business gatherings.",
       longDescription: "Our corporate catering ensures timely delivery, premium quality food, and professional presentation. Whether it's office lunches, conferences, or team events, we provide customized menus that suit your business needs and impress your clients.",
       image: CateringSection6,
-      bgGradient: "from-gray-500/20 to-slate-500/20"
+      bgGradient: "from-[#D81B7D]/20 to-[#ff4eb1]/20"
     }
 ];
 
@@ -115,7 +116,7 @@ const CateringSection = () => {
     enter: (direction) => ({
       x: direction > 0 ? 300 : -300,
       opacity: 0,
-      scale: 0.9
+      scale: 0.95
     }),
     center: {
       x: 0,
@@ -123,13 +124,13 @@ const CateringSection = () => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1] // Premium ease curve
       }
     },
     exit: (direction) => ({
       x: direction > 0 ? -300 : 300,
       opacity: 0,
-      scale: 0.9,
+      scale: 0.95,
       transition: {
         duration: 0.5,
         ease: "easeIn"
@@ -139,20 +140,20 @@ const CateringSection = () => {
 
   const contentVariants = {
     enter: (direction) => ({
-      x: direction > 0 ? 50 : -50,
+      x: direction > 0 ? 30 : -30,
       opacity: 0
     }),
     center: {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
-        delay: 0.2,
-        ease: "easeOut"
+        duration: 0.6,
+        delay: 0.1,
+        ease: [0.16, 1, 0.3, 1]
       }
     },
     exit: (direction) => ({
-      x: direction > 0 ? -50 : 50,
+      x: direction > 0 ? -30 : 30,
       opacity: 0,
       transition: {
         duration: 0.3,
@@ -162,31 +163,32 @@ const CateringSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-12 md:py-16 font-sans overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="bg-white py-20 md:py-28 font-sans overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-16 md:mb-20"
         >
-           
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tight mb-2">
-            Our Signature <span className="text-red-600 relative inline-block">
+          <span className="text-[#EC2290] font-black text-[10px] tracking-[0.3em] uppercase mb-4 block">Our Offerings</span>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+            Our Signature <span className="text-[#EC2290] relative inline-block">
               Menus
               <motion.svg 
                 initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
+                whileInView={{ width: "110%" }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute -bottom-2 left-0 h-2 text-red-200" 
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="absolute -bottom-1 -left-[5%] h-1.5 text-[#EC2290]/20" 
                 viewBox="0 0 200 10" 
+                preserveAspectRatio="none"
                 fill="currentColor"
               >
-                <path d="M0,5 Q50,0 100,5 T200,5" stroke="none" fill="currentColor" />
+                <path d="M0,5 Q50,0 100,5 T200,5 L200,10 L0,10 Z" />
               </motion.svg>
             </span>
           </h2>
@@ -195,23 +197,23 @@ const CateringSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-gray-500 max-w-2xl mx-auto text-sm font-medium"
+            className="text-gray-500 max-w-2xl mx-auto text-sm font-medium tracking-wide"
           >
             Discover our carefully crafted culinary offerings
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Featured Image Slider Section */}
           <div className="relative group">
             {/* Background Glow Effect */}
             <div 
-              className={`absolute -inset-4 bg-gradient-to-r ${activeMenu.bgGradient} rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+              className={`absolute -inset-6 bg-gradient-to-r ${activeMenu.bgGradient} rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700`}
             />
             
             {/* Main Image Container */}
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl border border-gray-100">
+            <div className="relative overflow-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-50 group-hover:shadow-[0_30px_60px_rgba(236,34,144,0.15)] group-hover:border-[#EC2290]/20 transition-all duration-500 bg-white">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={activeMenu.id}
@@ -225,11 +227,11 @@ const CateringSection = () => {
                   <img 
                     src={activeMenu.image} 
                     alt={activeMenu.title} 
-                    className="w-full h-[420px] object-cover"
+                    className="w-full h-[450px] object-cover"
                   />
                   
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 </motion.div>
               </AnimatePresence>
               
@@ -239,26 +241,26 @@ const CateringSection = () => {
                   prevMenu();
                   setIsAutoPlaying(false);
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-800 hover:bg-[#EC2290] hover:text-white transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0"
                 aria-label="Previous menu"
               >
-                <ChevronLeft size={20} />
+                <ChevronLeft size={24} strokeWidth={2.5} />
               </button>
               <button 
                 onClick={() => {
                   nextMenu();
                   setIsAutoPlaying(false);
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-800 hover:bg-[#EC2290] hover:text-white transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0"
                 aria-label="Next menu"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={24} strokeWidth={2.5} />
               </button>
               
               {/* Auto-play Indicator */}
               <button
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="absolute bottom-4 left-4 z-20 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-red-600 transition-all duration-300 text-xs"
+                className="absolute bottom-6 left-6 z-20 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-[#EC2290] transition-all duration-300 text-xs shadow-lg"
                 aria-label={isAutoPlaying ? "Pause slideshow" : "Play slideshow"}
               >
                 {isAutoPlaying ? "⏸" : "▶"}
@@ -270,13 +272,13 @@ const CateringSection = () => {
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 5, ease: "linear", repeat: Infinity }}
-                  className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-red-500 to-orange-500 z-20"
+                  className="absolute bottom-0 left-0 h-1.5 bg-gradient-to-r from-[#EC2290] to-[#ff4eb1] z-20"
                 />
               )}
             </div>
             
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-3 mt-8">
               {menuData.map((menu, idx) => (
                 <button
                   key={menu.id}
@@ -286,10 +288,10 @@ const CateringSection = () => {
                     setIsExpanded(false);
                     setIsAutoPlaying(false);
                   }}
-                  className={`transition-all duration-300 ${
+                  className={`transition-all duration-300 rounded-full ${
                     activeMenu.id === menu.id
-                      ? "w-6 h-2 bg-red-600 rounded-full"
-                      : "w-2 h-2 bg-gray-300 rounded-full hover:bg-red-400"
+                      ? "w-8 h-2.5 bg-[#EC2290]"
+                      : "w-2.5 h-2.5 bg-gray-200 hover:bg-[#EC2290]/50"
                   }`}
                   aria-label={`Go to ${menu.title}`}
                 />
@@ -297,8 +299,8 @@ const CateringSection = () => {
             </div>
             
             {/* Decorative Elements */}
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 border-l-2 border-b-2 border-red-200 rounded-bl-xl hidden lg:block" />
-            <div className="absolute -top-4 -right-4 w-16 h-16 border-r-2 border-t-2 border-red-200 rounded-tr-xl hidden lg:block" />
+            <div className="absolute -bottom-6 -left-6 w-20 h-20 border-l-4 border-b-4 border-[#EC2290]/10 rounded-bl-[2rem] hidden lg:block" />
+            <div className="absolute -top-6 -right-6 w-20 h-20 border-r-4 border-t-4 border-[#EC2290]/10 rounded-tr-[2rem] hidden lg:block" />
           </div>
 
           {/* Text and Interactive Section */}
@@ -310,52 +312,57 @@ const CateringSection = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              className="space-y-4"
+              className="space-y-6"
             >
               
               {/* Title */}
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tighter">
                 {activeMenu.title}
               </h2>
               
+              <div className="w-12 h-1.5 bg-[#EC2290]/20 rounded-full" />
+              
               {/* Description */}
-              <div className="space-y-2">
-                <p className="text-gray-600 leading-relaxed text-sm font-medium">
+              <div className="space-y-4">
+                <p className="text-gray-500 leading-relaxed text-[15px] font-medium">
                   {displayedDescription}
                 </p>
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="text-red-600 font-semibold hover:text-red-700 transition-colors inline-flex items-center gap-1 group text-sm"
+                  className="text-[#EC2290] font-black uppercase tracking-widest hover:text-[#D81B7D] transition-colors inline-flex items-center gap-2 group text-xs"
                 >
-                  {isExpanded ? 'Show less' : 'Read more'}
-                  <ChevronRight 
-                    size={14} 
-                    className={`transition-transform duration-300 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'}`}
-                  />
+                  {isExpanded ? 'Read Less' : 'Read Full Story'}
+                  <div className="w-6 h-6 rounded-full bg-[#EC2290]/10 flex items-center justify-center group-hover:bg-[#EC2290] group-hover:text-white transition-all duration-300">
+                    <ChevronRight 
+                      size={14} 
+                      strokeWidth={3}
+                      className={`transition-transform duration-300 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-0.5'}`}
+                    />
+                  </div>
                 </button>
               </div>
               
               {/* Manual Navigation Arrows */}
-              <div className="flex gap-2 pt-2">
+              <div className="flex gap-3 pt-6 border-t border-gray-100">
                 <button 
                   onClick={() => {
                     prevMenu();
                     setIsAutoPlaying(false);
                   }}
-                  className="group w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-red-600 hover:border-red-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                  className="group w-12 h-12 rounded-[1rem] border-2 border-gray-100 flex items-center justify-center text-gray-400 hover:bg-[#EC2290] hover:border-[#EC2290] hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                   aria-label="Previous menu"
                 >
-                  <ChevronLeft size={18} className="group-hover:scale-110 transition-transform" />
+                  <ChevronLeft size={20} strokeWidth={2.5} className="group-hover:scale-110 transition-transform" />
                 </button>
                 <button 
                   onClick={() => {
                     nextMenu();
                     setIsAutoPlaying(false);
                   }}
-                  className="group w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:bg-red-600 hover:border-red-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                  className="group w-12 h-12 rounded-[1rem] border-2 border-gray-100 flex items-center justify-center text-gray-400 hover:bg-[#EC2290] hover:border-[#EC2290] hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                   aria-label="Next menu"
                 >
-                  <ChevronRight size={18} className="group-hover:scale-110 transition-transform" />
+                  <ChevronRight size={20} strokeWidth={2.5} className="group-hover:scale-110 transition-transform" />
                 </button>
               </div>
               
