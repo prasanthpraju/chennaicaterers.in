@@ -27,27 +27,18 @@ export default function Navbar() {
     if (!isOpen) setMobileMenuExpanded(false);
   }, [isOpen]);
 
-  // Function to handle navigation with scroll to top
   const handleNavigation = (path) => {
-    // Close mobile menu first
     setIsOpen(false);
     setMobileMenuExpanded(false);
     
-    // Check if we're already on the same page
     if (location.pathname === path) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       navigate(path);
-      // Scroll to top after navigation
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
     }
-  };
-
-  const closeNav = () => {
-    setIsOpen(false);
-    setMobileMenuExpanded(false);
   };
 
   const navLinks = [
@@ -61,7 +52,7 @@ export default function Navbar() {
       ],
     },
     { name: "Services", path: "/services" },
-    { name: "gallery", path: "/gallery" },
+    { name: "Gallery", path: "/gallery" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
@@ -105,7 +96,7 @@ export default function Navbar() {
                     className={`flex items-center gap-1.5 relative font-bold text-[15px] uppercase tracking-wide transition-colors duration-300 py-2 cursor-pointer rounded-md px-1 ${
                       isActive
                         ? "text-white" 
-                        : "text-black hover:text-white"
+                        : "text-white/90 hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -115,7 +106,7 @@ export default function Navbar() {
                       className="transition-transform duration-300 group-hover:rotate-180"
                     />
                     <span
-                      className={`absolute left-0 bottom-0 h-[2px] bg-white transition-all duration-300 rounded-full ${
+                      className={`absolute left-0 bottom-0 h-[3px] bg-white transition-all duration-300 rounded-full ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
@@ -126,12 +117,12 @@ export default function Navbar() {
                     className={`flex items-center gap-1 relative font-bold text-[15px] uppercase tracking-wide transition-colors duration-300 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-md px-1 cursor-pointer ${
                       isActive
                         ? "text-white"
-                        : "text-black hover:text-white"
+                        : "text-white/90 hover:text-white"
                     }`}
                   >
                     {link.name}
                     <span
-                      className={`absolute left-0 bottom-0 h-[2px] bg-white transition-all duration-300 rounded-full ${
+                      className={`absolute left-0 bottom-0 h-[3px] bg-white transition-all duration-300 rounded-full ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
@@ -148,8 +139,8 @@ export default function Navbar() {
                           onClick={() => handleNavigation(subLink.path)}
                           className={`px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors text-left cursor-pointer ${
                             location.pathname === subLink.path
-                              ? "bg-[#EC2290] text-white"
-                              : "text-gray-700 hover:bg-gray-50 hover:text-[#EC2290]"
+                              ? "bg-pink-50 text-[#EC2290]"
+                              : "text-gray-700 hover:bg-pink-50 hover:text-[#EC2290]"
                           }`}
                         >
                           {subLink.name}
@@ -169,7 +160,7 @@ export default function Navbar() {
         <div className="flex lg:hidden items-center z-50">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-black p-1 focus:outline-none rounded-lg transition-transform duration-300 hover:bg-white/20 cursor-pointer"
+            className="text-white p-1 focus:outline-none rounded-lg transition-transform duration-300 hover:bg-white/20 cursor-pointer"
           >
             {isOpen ? (
               <X size={28} strokeWidth={2.5} />
@@ -202,7 +193,7 @@ export default function Navbar() {
                       onClick={() => setMobileMenuExpanded(!mobileMenuExpanded)}
                       className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 text-left flex justify-between items-center cursor-pointer ${
                         isActive
-                          ? "text-[#EC2290] bg-gray-50"
+                          ? "text-[#EC2290] bg-pink-50"
                           : "text-black hover:text-[#EC2290]" 
                       }`}
                     >
@@ -220,7 +211,7 @@ export default function Navbar() {
                       onClick={() => handleNavigation(link.path)}
                       className={`text-lg font-bold uppercase tracking-wide transition-colors py-3 px-2 rounded-lg flex-1 text-left cursor-pointer ${
                         isActive
-                          ? "text-[#EC2290] bg-gray-50"
+                          ? "text-[#EC2290] bg-pink-50"
                           : "text-black hover:text-[#EC2290]"
                       }`}
                     >
@@ -241,7 +232,7 @@ export default function Navbar() {
                       <button
                         key={subLink.name}
                         onClick={() => handleNavigation(subLink.path)}
-                        className={`pl-6 pr-4 py-3 text-sm font-bold uppercase tracking-wider border-l-2 transition-colors text-left cursor-pointer ${
+                        className={`pl-6 pr-4 py-3 text-sm font-bold uppercase tracking-wider border-l-4 transition-colors text-left cursor-pointer ${
                           location.pathname === subLink.path
                             ? "border-[#EC2290] text-[#EC2290] bg-white"
                             : "border-transparent text-gray-600 hover:text-[#EC2290]"

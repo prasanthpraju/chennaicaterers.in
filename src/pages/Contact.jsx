@@ -82,8 +82,8 @@ export default function Contact() {
             <div className="space-y-4">
               {/* Contact Blocks - Clean White Theme */}
               {[
-                { icon: CalendarHeart, label: "Direct Line", val: "Coming Soon...", title: "Reservations" },
-                { icon: Mail, label: "Email", val: "Coming Soon...", title: "Inquiries" }
+                { icon: CalendarHeart, label: "Direct Line", val: "7904431876", title: "Reservations" },
+                { icon: Mail, label: "Email", val: "kishores.professional@gmail.com", title: "Inquiries" }
               ].map((item, idx) => (
                 <div key={idx} className="bg-gray-50/50 border border-gray-100 rounded-[2rem] p-6 flex items-center gap-6 hover:bg-white hover:shadow-xl transition-all group">
                   <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-[#EC2290] border border-gray-50">
@@ -105,9 +105,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-[9px] font-black text-[#EC2290] uppercase tracking-[0.3em] mb-2">Location</p>
-                    <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter mb-2">The Central Kitchen</h3>
+                    <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter mb-2">72/2  Brindhavan Street, Rmakrishnapuram, West Mambalam ,</h3>
                     <p className="text-gray-500 font-bold leading-relaxed text-[11px] uppercase tracking-wider">
-                      Chennai, Tamil Nadu <br /> Service across the city
+                        Chennai ,india  <br />  
                     </p>
                   </div>
                 </div>

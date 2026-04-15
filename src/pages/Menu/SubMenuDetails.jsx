@@ -17,6 +17,10 @@ const SubMenuDetails = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [guestCount, setGuestCount] = useState(50);
   
+  // New state variables for the form
+  const [customerName, setCustomerName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  
   // Logic to strip numbers for a clean look, or add "1" if you prefer
   const cleanTitle = itemData?.title?.replace(/\d+/g, '').trim() || 'Menu';
 
@@ -33,6 +37,31 @@ const SubMenuDetails = () => {
     if (!imageObj) return null;
     const url = imageObj.formats?.[size]?.url || imageObj.url;
     return url ? `${BASE_URL}${url}` : null;
+  };
+
+  // Function to handle the actual booking submission
+  const handleConfirmBooking = () => {
+    if (!customerName.trim() || !contactNumber.trim()) {
+      alert("Please fill in your name and contact number.");
+      return;
+    }
+
+    // You can replace this console.log with your actual API call
+    console.log("Booking Submitted:", {
+      menu: cleanTitle,
+      guests: guestCount,
+      totalPrice: totalBookingPrice,
+      customerName,
+      contactNumber
+    });
+
+    alert("Booking request sent successfully!");
+    
+    // Close modal and reset form
+    setIsBookingModalOpen(false);
+    setCustomerName("");
+    setContactNumber("");
+    setGuestCount(50);
   };
 
   if (!itemData) {
@@ -94,21 +123,20 @@ const SubMenuDetails = () => {
             </div>
             <button 
               onClick={() => setIsBookingModalOpen(true)}
-              className="bg-[#EC2290] text-white px-10 py-5 rounded-full font-black uppercase text-[11px] tracking-[0.2em] hover:shadow-[0_15px_40px_rgba(236,34,144,0.3)] transition-all active:scale-95"
+              className="bg-[#EC2290] text-white px-10 py-5 rounded-full font-black uppercase text-[11px] tracking-[0.2em] hover:shadow-[0_15px_40px_rgba(236,34,144,0.3)] transition-all active:scale-95 cursor-pointer"
             >
               Reserve Menu
             </button>
           </div>
         </div>
 
-        {/* About & Inclusions - Description is fetched here */}
+        {/* About & Inclusions */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-20 mb-20">
           <div className="lg:col-span-5">
             <span className="text-[10px] font-black text-[#EC2290] uppercase tracking-widest block mb-4">About</span>
             <h3 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter mb-6 leading-tight">
               Culinary <br /> {cleanTitle} Composition
             </h3>
-            {/* Fetched Description */}
             <p className="text-gray-500 text-sm md:text-base leading-relaxed font-medium">
               {itemData.description || `Experience our premium ${cleanTitle} selection, meticulously prepared to deliver authentic flavors and a sophisticated dining experience for your event.`}
             </p>
@@ -156,7 +184,7 @@ const SubMenuDetails = () => {
         </div>
       </div>
 
-      {/* Improved Reservation Modal with Sidebar */}
+      {/* Reservation Modal with Sidebar */}
       <AnimatePresence>
         {isBookingModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
@@ -183,7 +211,7 @@ const SubMenuDetails = () => {
               <div className="flex-1 p-8 md:p-14 overflow-y-auto">
                 <div className="flex justify-between items-start mb-10">
                   <h3 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">Reservation</h3>
-                  <button onClick={() => setIsBookingModalOpen(false)} className="text-gray-300 hover:text-black transition-colors">
+                  <button onClick={() => setIsBookingModalOpen(false)} className="text-gray-300 hover:text-black transition-colors cursor-pointer">
                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeWidth="3"/></svg>
                   </button>
                 </div>
@@ -194,9 +222,9 @@ const SubMenuDetails = () => {
                     <div className="flex items-center justify-between mb-8">
                       <span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">Guests Count</span>
                       <div className="flex items-center bg-white border border-gray-200 rounded-full p-1.5 shadow-sm">
-                        <button onClick={handleDecrement} className="w-10 h-10 flex items-center justify-center font-black text-lg hover:text-[#EC2290] transition-colors">—</button>
+                        <button onClick={handleDecrement} className="w-10 h-10 flex items-center justify-center font-black text-lg hover:text-[#EC2290] transition-colors cursor-pointer">—</button>
                         <span className="font-black text-xl w-14 text-center text-gray-900">{guestCount}</span>
-                        <button onClick={handleIncrement} className="w-10 h-10 flex items-center justify-center font-black text-lg hover:text-[#EC2290] transition-colors">+</button>
+                        <button onClick={handleIncrement} className="w-10 h-10 flex items-center justify-center font-black text-lg hover:text-[#EC2290] transition-colors cursor-pointer">+</button>
                       </div>
                     </div>
                     
@@ -207,11 +235,27 @@ const SubMenuDetails = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" placeholder="YOUR FULL NAME" className="w-full bg-gray-50 border border-gray-100 p-5 rounded-[1.5rem] text-[11px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#EC2290]/20" />
-                    <input type="tel" placeholder="CONTACT NUMBER" className="w-full bg-gray-50 border border-gray-100 p-5 rounded-[1.5rem] text-[11px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#EC2290]/20" />
+                    <input 
+                      type="text" 
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="YOUR FULL NAME" 
+                      className="w-full bg-gray-50 border border-gray-100 p-5 rounded-[1.5rem] text-[11px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#EC2290]/20" 
+                    />
+                    <input 
+                      type="tel" 
+                      value={contactNumber}
+                      onChange={(e) => setContactNumber(e.target.value)}
+                      placeholder="CONTACT NUMBER" 
+                      className="w-full bg-gray-50 border border-gray-100 p-5 rounded-[1.5rem] text-[11px] font-black uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#EC2290]/20" 
+                    />
                   </div>
 
-                  <button className="w-full bg-[#EC2290] text-white py-6 rounded-[2rem] font-black uppercase text-[12px] tracking-[0.3em] shadow-2xl shadow-[#EC2290]/30 hover:scale-[1.02] transition-all">
+                  {/* Hooked up the onClick handler here */}
+                  <button 
+                    onClick={handleConfirmBooking}
+                    className="w-full bg-[#EC2290] text-white py-6 rounded-[2rem] font-black uppercase text-[12px] tracking-[0.3em] shadow-2xl shadow-[#EC2290]/30 hover:scale-[1.02] transition-all cursor-pointer"
+                  >
                     Confirm Booking Request
                   </button>
                 </div>

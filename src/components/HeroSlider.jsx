@@ -45,7 +45,6 @@ export default function HeroSlider() {
   ];
 
   return (
-    // FIX: Replaced fixed heights with h-[100dvh] for true mobile full height
     <div className="w-full h-[100dvh] lg:h-screen font-sans bg-black overflow-hidden relative group">
       <div
         className="absolute inset-0 z-20 opacity-[0.12] pointer-events-none mix-blend-overlay"
@@ -82,8 +81,8 @@ export default function HeroSlider() {
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 z-0" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 z-0" />
 
-              {/* FIX: Made the container h-full and used justify-center for perfect vertical alignment on all screen heights */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl mx-auto w-full h-full pb-16 md:pb-0">
+                {/* Monochromatic Pink Badge */}
                 <div className="hero-animate delay-100 mb-6 md:mb-8 flex items-center gap-2 md:gap-3 bg-white/10 backdrop-blur-2xl border border-white/20 p-1.5 rounded-full shadow-[0_0_40px_rgba(236,34,144,0.3)]">
                   <div className="bg-[#EC2290] text-white px-3 md:px-4 py-1.5 rounded-full text-[8px] md:text-[9px] font-black tracking-[0.2em] flex items-center gap-1.5 md:gap-2">
                     <Sparkles size={12} className="animate-pulse" /> EXCLUSIVE
@@ -108,8 +107,9 @@ export default function HeroSlider() {
                 </p>
               </div>
 
-              <div className="hero-animate delay-500 absolute bottom-16 left-12 z-20 hidden lg:flex items-center gap-5 bg-white/10 backdrop-blur-2xl border border-white/20 p-5 rounded-[2rem] shadow-2xl transition-all duration-500 hover:bg-white/15">
-                <div className="bg-[#EC2290]/20 p-4 rounded-2xl text-[#EC2290] shadow-inner">
+              {/* Prep Method Card */}
+              <div className="hero-animate delay-500 absolute bottom-16 left-12 z-20 hidden lg:flex items-center gap-5 bg-white/10 backdrop-blur-2xl border border-white/20 p-5 rounded-[2rem] shadow-2xl transition-all duration-500 hover:bg-white/15 hover:border-[#EC2290]/50 group/card">
+                <div className="bg-gradient-to-br from-[#FCE4EC]/20 to-[#EC2290]/30 p-4 rounded-2xl text-[#F48FB1] shadow-inner group-hover/card:text-white transition-colors">
                   {slide.prepIcon}
                 </div>
                 <div className="text-left pr-4">
@@ -118,6 +118,7 @@ export default function HeroSlider() {
                 </div>
               </div>
 
+              {/* Rating Card */}
               <div className="hero-animate delay-500 absolute bottom-16 right-12 z-20 hidden lg:flex items-center gap-5 bg-white/10 backdrop-blur-2xl border border-white/20 p-5 rounded-[2rem] shadow-2xl transition-all duration-500 hover:bg-white/15">
                 <div className="text-right pl-4">
                   <p className="text-[9px] text-white/50 font-black uppercase tracking-[0.2em] mb-1">Customer Rating</p>
@@ -157,14 +158,13 @@ export default function HeroSlider() {
 
         .swiper-progress-bullet::after {
           content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 0%;
-          background: #EC2290; border-radius: 4px;
+          background: linear-gradient(90deg, #FCE4EC, #F48FB1, #EC2290); border-radius: 4px;
         }
         
         .swiper-progress-bullet-active { width: 50px; }
         .swiper-progress-bullet-active::after { animation: fillBar 6s linear forwards; }
         @keyframes fillBar { 0% { width: 0%; } 100% { width: 100%; } }
         
-        /* FIX: Adjusted pagination positioning for mobile so it doesn't get cut off */
         .hero-swiper .swiper-pagination { bottom: 30px !important; z-index: 40; }
         @media (min-width: 768px) {
           .hero-swiper .swiper-pagination { bottom: 60px !important; }

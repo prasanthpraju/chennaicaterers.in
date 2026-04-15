@@ -66,15 +66,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="flex items-center gap-4 bg-gray-50 p-3 pr-6 rounded-full border border-gray-100 inline-flex">
-               <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-900 rounded-full flex items-center justify-center text-[#EC2290] font-black text-sm md:text-lg">
-                 CC
-               </div>
-               <div>
-                 <p className="text-gray-900 font-bold text-[10px] md:text-xs uppercase tracking-wide leading-none">Management Team</p>
-                 <p className="text-gray-400 text-[8px] md:text-[9px] font-bold uppercase tracking-[0.1em] mt-1">Since 2008</p>
-               </div>
-            </div>
+            
           </motion.div>
 
           {/* Mobile-Friendly Image Grid (Samosa & Biryani) */}
